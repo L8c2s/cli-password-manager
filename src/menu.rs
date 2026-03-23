@@ -1,3 +1,7 @@
+use std::io::Write;
+use std::io;
+
+
 fn _show_title(title: &str) {
     let title_char = "=";
 
@@ -15,16 +19,34 @@ fn _show_title(title: &str) {
     println!("{}", title_char.repeat(title_len));
 }
 
-fn _show_menu() {
-    // receives an array of options to display on the menu 
-    // the menu shows all items listed starting from 0 and 
-    // going all the way to the number of the length of the 
-    // options array
-    // also, the function adds a new option that is the 
-    // cancel/exit option. the number of this option is 
-    // the same as the length of the array.
+fn _show_menu(options: &[&str], _exit: &str) -> usize {
+    let options_len = options.len();
+
+    for (index, option) in options.iter().enumerate() {
+        println!("[{}] {}", index, option);
+    }
+    println!("[{}] {}", options_len, _exit);
+
+    // get user input
+    print!("\n>>> ");
+    io::stdout().flush().expect("Flush failed!");
+
+    let mut str_choice = String::new();
+
+    io::stdin()
+        .read_line(&mut str_choice)
+        .expect("Failed to read line.");
+
+    let choice = str_choice.trim().parse::<usize>().unwrap_or(usize::MAX);
+
+    if choice > options_len {
+        println!("Please, select a valid option.\n");
+    }
+
+    choice
 }
 
-pub fn simple_menu(title: &str) {
+pub fn simple_menu(title: &str, options: &[&str], _exit: &str) -> usize {
     _show_title(title);
+    _show_menu(options, _exit)
 }
