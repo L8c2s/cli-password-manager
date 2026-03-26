@@ -2,7 +2,7 @@ use std::io::Write;
 use std::io;
 
 
-fn _show_title(title: &str) {
+fn show_title(title: &str) {
     let title_char = "=";
 
     let mut title_len = title.chars().count();
@@ -19,7 +19,7 @@ fn _show_title(title: &str) {
     println!("{}", title_char.repeat(title_len));
 }
 
-fn _show_menu(options: &[&str], _exit: &str) -> usize {
+fn show_menu(options: &[&str], _exit: &str) -> usize {
     let options_len = options.len();
 
     for (index, option) in options.iter().enumerate() {
@@ -47,6 +47,6 @@ fn _show_menu(options: &[&str], _exit: &str) -> usize {
 }
 
 pub fn simple_menu(title: &str, options: &[&str], _exit: &str) -> usize {
-    _show_title(title);
-    _show_menu(options, _exit)
+    show_title(title);
+    show_menu(options, _exit)
 }
